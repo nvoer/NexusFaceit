@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange UI Dashboard</title>
+    <title>Amble Faceit</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icons/iconka.png" type="image/png">
 </head>
 
 <body>
@@ -38,22 +39,28 @@
             <path d="M12 2c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/>
         </symbol>
     </svg>
-
+    
     <header class="mobile-header">
         <div class="burger-icon" id="burgerBtn">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        <div class="mobile-logo" style="color: #ff6600; font-weight: bold; margin-left: 15px;">NEXUSFACEIT</div>
     </header>
     
     <aside class="sidebar" id="sidebar">
         
-
-        <div class="menu-item active" data-tab="news">
-            <div class="icon"><svg><use href="#icon-news"></use></svg></div>
-            <span class="text">Новости</span>
+        <div class="logo-area">
+            <div class="logo-main">
+                <div class="logo-group white">
+                    <span class="bold-letter">A</span>
+                    <span class="expanding-text">mble</span>
+                </div>
+                <div class="logo-group orange">
+                    <span class="bold-letter">F</span>
+                    <span class="expanding-text">aceit</span>
+                </div>
+            </div>
         </div>
         
         <div class="full-line"></div>
@@ -61,6 +68,10 @@
         <div class="menu-item" data-tab="main">
             <div class="icon"><svg><use href="#icon-home"></use></svg></div>
             <span class="text">Главная</span>
+        </div>
+        <div class="menu-item" data-tab="news">
+            <div class="icon"><svg><use href="#icon-news"></use></svg></div>
+            <span class="text">Новости </span>
         </div>
         <div class="menu-item" data-tab="matches">
             <div class="icon"><svg><use href="#icon-matches"></use></svg></div>
@@ -86,7 +97,7 @@
     
     <main class="main-content">
         <div class="full-line"></div>
-
+        
         <section id="news" class="tab-content active">
             <h1 class="content-title">Последние новости</h1>
         </section>
