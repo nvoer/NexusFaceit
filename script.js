@@ -1,61 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Ищем элементы по тем ID, которые у тебя в HTML
-    const burgerBtn = document.getElementById('burgerBtn'); 
+    const burgerBtn = document.getElementById('burgerBtn');
     const closeBtn = document.getElementById('closeBtn');
     const sidebar = document.getElementById('sidebar');
-    const tabs = document.querySelectorAll('.menu-item');
-    const contents = document.querySelectorAll('.tab-content');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-    // --- ОТЛАДКА (проверь в консоли F12) ---
-    console.log('Бургер найден:', !!burgerBtn);
-    console.log('Крестик найден:', !!closeBtn);
-    console.log('Сайдбар найден:', !!sidebar);
+    // Функция переключения меню
+    const toggleSidebar = () => {
+        sidebar.classList.toggle('mobile-active');
+        burgerBtn.classList.toggle('open'); // Для анимации иконки
+    };
 
-    // --- ОТКРЫТИЕ МЕНЮ ---
-    if (burgerBtn) {
-        burgerBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.add('open');
-            console.log('Класс open добавлен сайдбару');
-        });
-    }
+    // Открытие/Закрытие
+    burgerBtn.addEventListener('click', toggleSidebar);
+    closeBtn.addEventListener('click', toggleSidebar);
 
-    // --- ЗАКРЫТИЕ МЕНЮ (КРЕСТИК) ---
-    if (closeBtn) {
-        closeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.remove('open');
-            console.log('Класс open удален');
-        });
-    }
+    // Логика переключения вкладок
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Убираем активный класс у всех кнопок и контента
+            menuItems.forEach(i => i.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
 
-    // --- ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ---
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = tab.getAttribute('data-tab');
+            // Добавляем активный класс текущей кнопке
+            item.classList.add('active');
 
-            // Сброс всех активных элементов
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
+            // Показываем нужный контент по data-tab
+            const tabId = item.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
 
-            // Активация нужной вкладки
-            tab.classList.add('active');
-            const targetContent = document.getElementById(target);
-            if (targetContent) {
-                targetContent.classList.add('active');
+            // Закрываем меню на мобилках после выбора пункта
+            if (window.innerWidth <= 1024) {
+                toggleSidebar();
             }
-
-            // Закрываем меню после клика (для мобильного режима)
-            sidebar.classList.remove('open');
         });
     });
 
-    // --- ЗАКРЫТИЕ ПРИ КЛИКЕ МИМО ---
+    // Закрытие меню при клике вне его области (на мобилках)
     document.addEventListener('click', (e) => {
-        if (sidebar && sidebar.classList.contains('open')) {
-            if (!sidebar.contains(e.target) && !burgerBtn.contains(e.target)) {
-                sidebar.classList.remove('open');
-            }
+        if (window.innerWidth <= 1024 && 
+            !sidebar.contains(e.target) && 
+            !burgerBtn.contains(e.target) && 
+            sidebar.classList.contains('mobile-active')) {
+            toggleSidebar();
         }
     });
 });

@@ -236,3 +236,64 @@ body {
         display: none;
     }
 }
+
+/* Анимация иконки бургера */
+.burger-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    height: 30px;
+    width: 30px;
+    transition: 0.3s;
+}
+
+.burger-icon span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: #ffffff;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+}
+
+/* Превращение в крестик при наличии класса .open */
+.burger-icon.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.burger-icon.open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.burger-icon.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Плавность появления контента */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Улучшение мобильного сайдбара */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px #ff6600;
+    }
+    
+    .sidebar.mobile-active {
+        transform: translateX(0);
+    }
+}
