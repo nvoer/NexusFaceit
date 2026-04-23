@@ -1,0 +1,238 @@
+/* --- ЦВЕТОВАЯ СХЕМА --- */
+:root {
+    --primary-orange: #ff6600;
+    --sidebar-bg: #141414;
+    --header-bg: #0d0d0d;
+    --border-color: #1f1f1f;
+    --line-color: #222;
+}
+
+/* --- ШАПКА ДЛЯ МОБИЛОК / БОЛЬШОГО МАСШТАБА --- */
+.mobile-header {
+    display: none; /* Скрыта на ПК по умолчанию */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1100;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.burger-icon {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.burger-icon span {
+    width: 25px;
+    height: 2px;
+    background-color: #ffffff;
+    transition: 0.3s;
+}
+
+/* --- ОБНОВЛЕННЫЕ СТИЛИ ДЛЯ ИКОНОК --- */
+.icon {
+    min-width: 54px;
+    height: 54px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    color: #888; 
+    transition: color 0.3s ease;
+    margin-left: -1px; 
+}
+
+.icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor; 
+    transform-origin: center; 
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+}
+
+#icon-matches {
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 2;
+}
+
+.menu-item:hover .icon,
+.menu-item:hover .text {
+    color: #ffffff; 
+}
+
+.menu-item:hover .icon svg {
+    transform: scale(1.2); 
+}
+
+.menu-item.active .icon,
+.menu-item.active .text { 
+    color: var(--primary-orange); 
+}
+
+/* --- ЕДИНАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ --- */
+.full-line {
+    display: block;
+    height: 1px;
+    background-color: var(--line-color);
+    border: none;
+    position: absolute;
+    top: 79px; 
+    z-index: 1001;
+}
+
+.sidebar .full-line {
+    left: 0;
+    width: 100%;
+}
+
+.main-content > .full-line {
+    top: 79px; 
+    left: -1px; 
+    width: calc(100% + 1px);
+    margin: 0;
+}
+
+/* --- КОРПУС --- */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    height: 100vh;
+    width: 76px;
+    background-color: var(--sidebar-bg);
+    padding: 15px 11px; 
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease; 
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar:hover, .sidebar.mobile-active { width: 280px; }
+
+/* КРЕСТИК ЗАКРЫТИЯ (ВИДЕН В МОБИЛЬНОМ РЕЖИМЕ) */
+.close-sidebar {
+    display: none;
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 30px;
+    color: #ffffff;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.sidebar .menu-item:first-child {
+    margin-top: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    height: 54px;
+    width: 100%; 
+    margin: 4px 0;
+    cursor: pointer;
+    position: relative;
+    border-radius: 14px;
+    transition: background-color 0.3s;
+}
+
+.menu-item.active {
+    border: 1px solid var(--primary-orange);
+    background-color: rgba(255, 102, 0, 0.07);
+}
+
+.menu-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 15px;
+    height: 24px; width: 5px;
+    background-color: var(--primary-orange);
+    border-radius: 0 4px 4px 0;
+}
+
+.text {
+    opacity: 0;
+    white-space: nowrap;
+    color: #888;
+    font-weight: 500;
+    margin-left: 12px;
+    transition: opacity 0.2s, color 0.3s;
+}
+
+.sidebar:hover .text, .sidebar.mobile-active .text { opacity: 1; }
+
+.sidebar .full-line + .menu-item {
+    margin-top: 25px; 
+}
+
+/* --- ГЛАВНЫЙ ЭКРАН --- */
+.main-content {
+    margin-left: 76px;
+    padding: 0; 
+    position: relative;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar:hover ~ .main-content, .sidebar.mobile-active ~ .main-content {
+    /* Если меню открыто кнопкой, контент может не сдвигаться, если это мобилка */
+}
+
+.tab-content {
+    display: none;
+    padding: 100px 40px 20px 40px; 
+}
+
+.tab-content.active { display: block; }
+
+.content-title {
+    color: var(--primary-orange);
+    font-size: 32px;
+    margin: 0;
+}
+
+/* --- АДАПТИВНОСТЬ / МАСШТАБИРОВАНИЕ --- */
+@media (max-width: 1024px) {
+    .mobile-header {
+        display: flex; /* Показываем шапку при уменьшении окна или зуме */
+    }
+
+    .sidebar {
+        transform: translateX(-100%); /* Прячем сайдбар */
+        width: 280px; /* В мобильном виде он всегда широкий при открытии */
+    }
+
+    .sidebar.mobile-active {
+        transform: translateX(0); /* Выезжает при клике на бургер */
+    }
+
+    .close-sidebar {
+        display: block; /* Показываем крестик */
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding-top: 60px; /* Чтобы контент не был под шапкой */
+    }
+
+    /* На мобилках линию на основном экране можно скрыть или оставить под шапкой */
+    .main-content > .full-line {
+        display: none;
+    }
+}
