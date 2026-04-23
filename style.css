@@ -57,10 +57,38 @@
     transition: opacity 0.2s;
 }
 
-.sidebar:hover .logo-text-bold, 
-.sidebar.mobile-active .logo-text-bold { 
-    opacity: 1; 
+/* --- АНИМАЦИЯ ДЛЯ ПК (HOVER) И МОБИЛОК (ACTIVE) --- */
+
+/* 1. Раскрываем текст mble и aceit */
+.sidebar:hover .expanding-text,
+.sidebar.mobile-active .expanding-text {
+    max-width: 150px !important;
+    opacity: 1 !important;
+    margin-right: 8px; /* Отступ между словами */
 }
+
+/* 2. Настраиваем отступы оранжевой части Faceit */
+.sidebar:hover .logo-group.white,
+.sidebar.mobile-active .logo-group.white {
+    margin-right: 8px;
+}
+
+.sidebar:hover .logo-group.orange,
+.sidebar.mobile-active .logo-group.orange {
+    margin-left: 0 !important;
+}
+
+/* 3. Если на мобилке логотип все равно "сплющен", принудительно даем ширину */
+@media (max-width: 1024px) {
+    .sidebar.mobile-active .logo-area {
+        width: 100% !important;
+        padding-left: 20px; /* Подвинь, если на мобилке криво */
+    }
+    
+    .sidebar.mobile-active .logo-main {
+        display: flex !important;
+    }
+}}
 
 .white-part { color: #ffffff !important; }
 .orange-part { color: var(--primary-orange) !important; }
@@ -363,3 +391,4 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
